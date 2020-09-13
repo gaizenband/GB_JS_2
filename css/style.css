@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    height: 100px;
+    background-color: rgb(73, 70, 221);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+h1 {
+    font-size: 50px;
+    color: white;
+    margin-left: 30%;
+}
+
+.btn-cart {
+    padding: 5px 10px;
+}
+
+.products {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+.product-item {
+    margin: 5px;
+    width: 400px;
+    border: 1px solid black;
+    padding: 30px;
+}
