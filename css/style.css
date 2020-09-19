@@ -43,3 +43,24 @@ h1 {
     border: 1px solid black;
     padding: 30px;
 }
+
+
+.cart {
+    margin: 10px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+}
+
+.cartData {
+    margin-left: 5px;
+}
+
+#cartPrice {
+    display: block;
+    margin-top: 15px;
+}
