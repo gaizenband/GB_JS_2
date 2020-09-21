@@ -1,26 +1,26 @@
-const delButns = () => {
-    const delBtn = document.querySelectorAll('.delBtn');
-    delBtn.forEach(item => item.addEventListener('click', () => cartList._cartRemoveItem(item.id.substring(7))));
-}
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/';
+ 
 
 
 class ProductsList{
     constructor(container = '.products'){
+        this._showCart();
         this.container = container;
         this.goods = [];
         this.price = null;
-        this._fetchProducts();
-        this._totalPrice();
+        this._fetchProducts()
+        .then(answer => {
+            this.goods = answer;
+            this.render();
+            this._addToCart();
+            this._totalPrice();
+        });
     }
     
     _fetchProducts(){
-        this.imgPath = '../img/'
-        this.goods = [
-            {id: 1, title: 'Notebook', price: 2000, img: this.imgPath+'notebook.jpg'},
-            {id: 2, title: 'Mouse', price: 20, img: this.imgPath+'2nd.jpg'},
-            {id: 3, title: 'Keyboard', price: 200, img: this.imgPath+'3rd.jpg'},
-            {id: 4, title: 'Gamepad', price: 50, img: this.imgPath+'4th.jpg'},
-        ];
+        return fetch(`${API}catalogData.json`)
+            .then(answer => answer.json())
+            .catch(error => console.log(error));
     }
     
     render(){
@@ -33,15 +33,36 @@ class ProductsList{
 
     _totalPrice(){
         this.goods.forEach(item => this.price += +item.price);
+        console.log(this.price);
+    }
+
+    _addToCart(){
+        let cartList = new Cart();
+        const buyBtn = document.querySelectorAll('.buy-btn');
+        buyBtn.forEach(item => item.addEventListener('click', () => cartList._cartAddItem(item.id)));
+    }
+
+    _showCart() {
+        const btn = document.querySelector('.btn-cart');
+        const cart = document.querySelector('.cart');
+        cart.style.display = 'none';
+
+        btn.addEventListener ('click', () => {
+            if (cart.style.display == 'none') {
+                cart.style.display = 'block';
+            } else {
+                cart.style.display = 'none';
+            }
+        });
     }
 }
 
 class ProductItem{
      constructor(product){
-        this.title = product.title;
-        this.id = product.id;
+        this.title = product.product_name;
+        this.id = product.id_product;
         this.price = product.price;
-        this.img = product.img; 
+        this.img = 'https://picsum.photos/300/200'; 
     }
     
     render(){
@@ -58,16 +79,17 @@ class Cart {
     constructor(container = '.cart'){
         this.container = container;
         this.cart = [];
+        this.price = null;
     }
 
     _cartAddItem(id){
-        let thisElement = this.cart.find(item => item.id == id);
-
+        let thisElement = this.cart.find(item => item.id_product == id);
+        console.log(id)
         if(!thisElement) {
-            this.cart.push(list.goods.find(item => item.id == id));
+            this.cart.push(list.goods.find(item => item.id_product == id));
             this.calcSum();
             this.render();
-            delButns();
+            this._delButns();
         }
     }
 
@@ -78,26 +100,35 @@ class Cart {
             const productObj = new cartItem(item);
             block.insertAdjacentHTML('beforeend',productObj.render());
         }
-        block.insertAdjacentHTML('beforeend', `<p id='cartPrice'>Total price: ${this.price}</p>`);
+        if (this.price){
+            block.insertAdjacentHTML('beforeend', `<p id='cartPrice'>Total price: ${this.price}</p>`);
+        } else {
+            block.innerHTML = '';
+        }
     }
 
     calcSum(){
-        this.price = null;
+        
         this.cart.forEach(item => this.price += +item.price);
     }
 
     _cartRemoveItem(id){
-        let itemIndex = this.cart.indexOf(this.cart.find(item => item.id == id))
+        let itemIndex = this.cart.indexOf(this.cart.find(item => item.id_product == id))
         this.cart.splice(itemIndex,1);
         this.calcSum();
         this.render();
+    }
+
+    _delButns() {
+        const delBtn = document.querySelectorAll('.delBtn');
+        delBtn.forEach(item => item.addEventListener('click', () => this._cartRemoveItem(item.id.substring(7))));
     }
 }
 
 class cartItem {
     constructor(product){
-        this.title = product.title;
-        this.id = product.id;
+        this.title = product.product_name;
+        this.id = product.id_product;
         this.price = product.price;
     }
     
@@ -116,9 +147,6 @@ class cartItem {
 
 
 let list = new ProductsList();
-list.render();
 
-let cartList = new Cart();
-const buyBtn = document.querySelectorAll('.buy-btn');
-buyBtn.forEach(item => item.addEventListener('click', () => cartList._cartAddItem(item.id)));
+
 
