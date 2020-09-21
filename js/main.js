@@ -103,12 +103,12 @@ class Cart {
         if (this.price){
             block.insertAdjacentHTML('beforeend', `<p id='cartPrice'>Total price: ${this.price}</p>`);
         } else {
-            block.innerHTML = '';
+            block.innerHTML = 'Пусто';
         }
     }
 
     calcSum(){
-        
+        this.price = null;
         this.cart.forEach(item => this.price += +item.price);
     }
 
