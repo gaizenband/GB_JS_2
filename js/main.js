@@ -106,6 +106,7 @@ class Cart {
         } else {
             block.innerHTML = 'Пусто';
         }
+
     }
 
     calcSum(){
@@ -115,9 +116,12 @@ class Cart {
 
     _cartRemoveItem(id){
         let itemIndex = this.cart.indexOf(this.cart.find(item => item.id_product == id))
+
         this.cart.splice(itemIndex,1);
         this.calcSum();
         this.render();
+        this._delButns();
+
     }
 
     _delButns() {
