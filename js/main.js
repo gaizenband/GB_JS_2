@@ -1,5 +1,5 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/';
- 
+
 
 
 class ProductsList{
@@ -45,6 +45,7 @@ class ProductsList{
     _showCart() {
         const btn = document.querySelector('.btn-cart');
         const cart = document.querySelector('.cart');
+        cart.innerHTML = 'Пусто';
         cart.style.display = 'none';
 
         btn.addEventListener ('click', () => {
