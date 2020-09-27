@@ -39,6 +39,27 @@ h1 {
     flex-wrap: wrap;
 }
 
+.constact_us {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+.form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.form button {
+    display: block;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    margin: 0 auto;
+}
+
+
 .product-item {
     margin: 5px;
     width: 400px;
@@ -71,4 +92,8 @@ h1 {
 #cartPrice {
     display: block;
     margin-top: 15px;
+}
+
+.red {
+    border: 2px solid red;
 }

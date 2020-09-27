@@ -150,8 +150,59 @@ class cartItem {
     }
 }
 
+class checkValues {
+    constructor(){
+        this.submit();
+        this.errors = 0;
+    }
+
+    check(){
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(el => {
+            switch (el.type) {
+                case 'text':
+                    if(!(/^[a-zа-я]+$/i).test(el.value)) {
+                        el.classList.add('red');
+                        this.errors++;
+                    }else{
+                        el.classList.remove('red');
+                    };
+                    break;
+                case 'tel':
+                    if(!(/^\+[1-9]{1,3}\([0-9]{3}\)[0-9]{3}\-[0-9]{4}/i).test(el.value)){
+                        el.classList.add('red');
+                        this.errors++;
+                    }else{
+                        el.classList.remove('red'); 
+                    };
+                    break;
+                case 'email':
+                    if(!/^[a-zа-я0-9._-]+@[a-zа-я0-9_-]+\.[a-zа-я]{2,4}$/.test(el.value)){
+                        el.classList.add('red');
+                        this.errors++;
+                    }else{
+                        el.classList.remove('red');
+                    };
+                    break;
+            }
+        })
+        if(this.errors){
+            alert('Исправьте выделенные красным поля для отправки формы!');
+        }
+    }
+
+    submit(){
+        const submitBtn = document.querySelector('.submit_form');
+        submitBtn.addEventListener('click',(e) => {
+            e.preventDefault();
+            this.check();
+        });
+    }
+}
+
 
 let list = new ProductsList();
+let formCheck = new checkValues();
 
 
 
