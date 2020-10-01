@@ -97,3 +97,11 @@ h1 {
 .red {
     border: 2px solid red;
 }
+
+.head_content {
+    display: flex;
+}
+
+.find_content {
+    margin-right: 20px;  
+}

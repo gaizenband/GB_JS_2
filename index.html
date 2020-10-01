@@ -6,26 +6,40 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <header>
-        <div class="head">
-            <h1>Shop</h1>
-            <button class="btn-cart" type="button">Корзина</button>
-            <div class="cart">
+    <div id="app">
+        <header>
+            <div class="head">
+                <h1>Shop</h1>
+                <div class="head_content">
+                    <div class="find_content">
+                        <input type="text" v-model='searchLine'  @input='filterGoods()'>
+                    </div>
+                    <div class="cart_content">
+                        <button class="btn-cart" type="button" @click='isVisibleCart = !isVisibleCart'>Корзина</button>
+                        <div class="cart" v-if='isVisibleCart'>
+                            <p v-if='!cartGoods.length'>Пусто</p>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
-        </div>
-    </header>
-    <main>
-        <div class="products"></div>
-        <div class="constact_us">
-            <form action="post" class="form">
-                <div><p>Name: </p><input type="text" class="form-input" placeholder="Vasya"></div>
-                <div><p>Phone: </p><input type="tel" class="form-input" placeholder="+7(000)000-0000"></div>
-                <div><p>Email: </p><input type="email" class="form-input" placeholder="mymail@mail.ru"></div>
-                <textarea name="text" cols="30" rows="10"></textarea>
-                <button type="submit" class="submit_form">Go</button>
-            </form>
-        </div>
-    </main>
-    <script src="js/main.js"></script>
+        </header>
+        <main>
+            <div class="products">
+                <div v-for="product of showedProducts" :key='product.id_product' class="product-item">
+                    <img src="https://picsum.photos/300/200" alt="some img">
+                    <h3>{{product.product_name}}</h3>
+                    <p>{{product.price}}</p>
+                    <button class="buy-btn" :id="product.id_product">Купить</button>
+                </div>
+            </div>
+            <div class="constact_us">
+            </div>
+        </main>
+    </div>
+    
+
+    <script src="vue.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
