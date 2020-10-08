@@ -4,9 +4,7 @@ const app = new Vue(
         data: {
             products: [],
             api: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/',
-            isVisibleCart: false,
-            cartData: '',
-            searchLine:'',
+            cartData: '',     
             showedProducts:[],
             cartGoods:[],
         },
@@ -16,20 +14,36 @@ const app = new Vue(
                     .then(answer => answer.json())
                     .catch(error => console.log(error));
             },
-            filterGoods(){
-                if (this.searchLine) {
-                    this.showedProducts = this.products.filter(value => value.product_name.toLowerCase().includes(this.searchLine))
+            filterGoods(searchLine){
+                if (searchLine) {
+                    this.showedProducts = this.products.filter(value => value.product_name.toLowerCase().includes(searchLine))
                 } else {
                     this.showedProducts = this.products;
                 }
             },
+            createImg(){
+                this.products.forEach(element => {
+                    element.img = 'https://picsum.photos/300/200';
+                });
+                this.showedProducts = this.products;
+            },
+            addProduct(item){
+                let thisElement = this.cartGoods.find(item => item.id == id);
+                if (!thisElement) {
+                    this.cartGoods.push(item);
+                } else {
+                    ++this.cartGoods.item.count;
+                }
+            }
         },
         mounted() {
             this.fetchProducts(this.api)
                 .then(data => {
-                    this.products = [...data]; 
-                    this.showedProducts = [...data];
+                    this.products = [...data];
+                    this.createImg();
+
                 });
+            
         },
     }   
 )
