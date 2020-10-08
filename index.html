@@ -8,7 +8,7 @@
 <body>
     <div id="app">
         <header>
-            <header-comp :cartitems="cartGoods" @filtergoods='filterGoods'></header-comp>
+            <header-comp :cartitems="cartGoods" @filtergoods='filterGoods' @addproduct='addProduct'></header-comp>
         </header>
         <main>
             <products-comp :showed='showedProducts' @addproduct='addProduct'></products-comp>

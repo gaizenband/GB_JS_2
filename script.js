@@ -28,11 +28,16 @@ const app = new Vue(
                 this.showedProducts = this.products;
             },
             addProduct(item){
-                let thisElement = this.cartGoods.find(item => item.id == id);
-                if (!thisElement) {
+                let thisElement = this.cartGoods.find(el => el.id_product == item.id_product);
+                
+                if (thisElement && +thisElement.count == 0) {
+                        let elPosition = this.cartGoods.indexOf(thisElement);
+                        this.cartGoods.splice(elPosition,1);
+                }else if (!thisElement) {
+                    item.count = 1;
                     this.cartGoods.push(item);
                 } else {
-                    ++this.cartGoods.item.count;
+                    ++thisElement.count;
                 }
             }
         },
