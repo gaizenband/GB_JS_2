@@ -28,7 +28,23 @@ Vue.component('cart',{
     data(){
         return {
             isVisibleCart: false,
-            totalPrice: null,
+        }
+    },
+    methods: {
+        calculateCart() {
+            let totalPrice = null;
+            this.cartitems.forEach(el => {
+                totalPrice += el.count * el.price;
+            });
+            return totalPrice;
+        },
+        deleteItem(id) {
+           const curElement = this.cartitems.find(el => el.id_product == id);
+           if (curElement.count == 1) {
+               this.cartitems.splice(this.cartitems.indexOf(curElement), 1);
+           } else {
+                --curElement.count;
+           }
         }
     },
     template: `
@@ -37,13 +53,14 @@ Vue.component('cart',{
         <div class="cart" v-if='isVisibleCart'>
             <p v-if='!cartitems.length'>Пусто</p>
             <div class='cart_item' v-for="item of cartitems" :key='item.id_product'>
-                <p class='cart_item_name'>{{item.product_name}}</p>
                 <div class='cart_item_info'>
-                    <p type='number' class='cart_item_count' @input='$parent.$emit("addproduct",item)'>{{ item.count }}</p>
-                    <p class='cart_item_price'>{{item.count * item.price}}</p>
+                    <p class='cart_item_name'>{{item.product_name}}</p>
+                    <p type='number' class='cart_item_count' @input='$parent.$emit("addproduct",item)'>Количество: {{ item.count }}</p>
+                    <p class='cart_item_price'>Стоимость: {{item.count * item.price}}</p>
                 </div>
-                <button>Удалить</button>
+                <button @click='deleteItem(item.id_product)'>Удалить</button>
             </div>
+            <p v-if='cartitems.length'>Итого: {{calculateCart()}}</p>
         </div>
     </div>
     `
