@@ -18,7 +18,7 @@ Vue.component('search',{
     },
     template: `
     <div class="find_content">
-        <input type="text" v-model='searchLine'  @input='$parent.$emit("filtergoods", searchLine)'>
+        <input type="text" v-model='searchLine'  @input='$parent.$emit("filtergoods", searchLine)' placeholder='Найти товар...'>
     </div>
     `
 })
