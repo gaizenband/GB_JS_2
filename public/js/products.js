@@ -2,7 +2,7 @@ Vue.component('products-comp',{
     props:['showed','addproduct'],
     template: ` <div class="products">
                     <div v-for="product of showed" :key='product.id_product' class="product-item">
-                        <img :src="product.img" alt="some img">
+                        <img :src="product.img" alt="some img" class='product_img'>
                         <div class='product_info'>
                             <div>
                                 <h3 class='product_name'>{{product.product_name}}</h3>

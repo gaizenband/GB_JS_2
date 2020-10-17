@@ -11,13 +11,12 @@
             <header-comp :cartitems="cartGoods" @filtergoods='filterGoods' @addproduct='addProduct'></header-comp>
         </header>
         <main>
-            <products-comp :showed='showedProducts' @addproduct='addProduct'></products-comp>
+            <products-comp :showed='showedProducts' @addproduct='addProduct' @remove='remove'></products-comp>
         </main>
     </div>
-    
-    <script src="vue.js"></script>
-    <script src="header.js"></script>
-    <script src="products.js"></script>
-    <script src="script.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/products.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
